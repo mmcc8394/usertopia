@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Rails easy_bake_beginning: development" uuid="6564a493-6d48-40e5-a82c-9421109f0dad">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/easy_bake_dev</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails easy_bake_beginning: production" uuid="acd75814-3976-4d5a-8040-987bd30eb599">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/easy_bake_production</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails easy_bake_beginning: test" uuid="d1077425-572b-49bb-ac9e-d0a5e49e85f7">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/easy_bake_test</jdbc-url>
+    </data-source>
+  </component>
+</project>
