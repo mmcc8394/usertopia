@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   get 'home/show'
 
-  get 'login/new'
-  post 'login/create'
-  delete 'login/destroy'
-
+  resource :login, only: [ :new, :create, :destroy ]
   resources :users
 
   root 'home#show'

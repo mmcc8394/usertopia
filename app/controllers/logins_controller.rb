@@ -1,4 +1,4 @@
-class LoginController < ApplicationController
+class LoginsController < ApplicationController
   def new
   end
 
@@ -13,7 +13,7 @@ class LoginController < ApplicationController
         render :new
       end
     else
-      flash[:alert] = 'Invalid login email.'
+      flash[:alert] = 'Invalid logins email.'
       render :new
     end
   end
