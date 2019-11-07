@@ -1,16 +1,10 @@
 class UserPolicy < ApplicationPolicy
-  def show?
-    user.admin? || viewing_self?
+  def index?
+    user.admin?
   end
 
-  class Scope < Scope
-    def resolve
-      if user.admin?
-        scope.all
-      else
-        raise Pundit::NotAuthorizedError
-      end
-    end
+  def show?
+    user.admin? || viewing_self?
   end
 
   private

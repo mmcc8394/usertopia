@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :logged_in?
 
   def index
-    @users = policy_scope(User)
+    authorize User
+    @users = User.all
   end
 
   def show
