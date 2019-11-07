@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+  before_action :authorize
+
   def index
+    @users = policy_scope(User)
   end
 
   def show
