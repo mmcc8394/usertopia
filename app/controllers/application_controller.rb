@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def authorize
+  def logged_in?
     user_not_authorized if current_user.nil?
   end
 
