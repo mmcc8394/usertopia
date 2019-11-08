@@ -4,12 +4,28 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || viewing_self?
+    user.admin? || itself?
+  end
+
+  def new?
+    user.admin?
+  end
+
+  def create?
+    user.admin?
+  end
+
+  def edit?
+    user.admin? || itself?
+  end
+
+  def update?
+    user.admin? || itself?
   end
 
   private
 
-  def viewing_self?
+  def itself?
     user.id == record.id
   end
 end
