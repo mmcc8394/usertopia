@@ -23,8 +23,32 @@ RSpec.describe "Users", type: :request do
       expect_user_shown(@basic)
     end
 
+    it 'create a new user' do
+      get new_user_path
+      expect(response).to have_http_status(200)
+      post users_path, params: { user: { email: 'new-email@domain.com', password: 'new-secret' } }
+      expect(response).to have_http_status(302)
+      follow_redirect!
+      expect(response.body).to include('New user created.')
+      expect(User.all.order(:id).last.email).to eq('new-email@domain.com')
+    end
+
     it 'edit another user' do
       valid_user_edit(@basic)
+    end
+
+    it 'deletes a non-admin user' do
+      delete user_path(@basic)
+      expect(response).to have_http_status(302)
+      follow_redirect!
+      expect(response.body).to include('User deleted.')
+      expect(User.find_by_id(@basic.id)).to be_nil
+    end
+
+    it 'does not allow delete of admin user' do
+      new_admin = User.create!({ email: 'new-admin@domain.com', password: 'some-secret', role: 'admin' })
+      delete user_path(new_admin)
+      expect_access_denied
     end
   end
 

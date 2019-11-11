@@ -23,6 +23,10 @@ class UserPolicy < ApplicationPolicy
     user.admin? || itself?
   end
 
+  def destroy?
+    user.admin? && !record.admin?
+  end
+
   private
 
   def itself?

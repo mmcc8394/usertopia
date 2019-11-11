@@ -17,6 +17,12 @@ class UsersController < ApplicationController
 
   def create
     authorize(User)
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_path(@user), notice: 'New user created.'
+    else
+      render action: :new
+    end
   end
 
   def edit
@@ -29,15 +35,17 @@ class UsersController < ApplicationController
     authorize(@user)
 
     if @user.update(user_params)
-      flash[:notice] = 'User info updated.'
-      redirect_to user_path(@user)
+      redirect_to user_path(@user), notice: 'User info updated.'
     else
       render action: :edit
     end
   end
 
   def destroy
-    authorize(User)
+    @user = User.find(params[:id])
+    authorize(@user)
+    @user.destroy
+    redirect_to users_path, notice: 'User deleted.'
   end
 
   private
