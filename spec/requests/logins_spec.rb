@@ -8,7 +8,7 @@ RSpec.describe "Login", type: :request do
   end
 
   context 'happy path' do
-    before(:each) { post login_path, params: { login: { email: 'user@domain.com', password: 'my-secret' } } }
+    before(:each) { post login_path, params: { user: { email: 'user@domain.com', password: 'my-secret' } } }
 
     it 'successful logins' do
       expect(response).to have_http_status(302)
@@ -31,12 +31,12 @@ RSpec.describe "Login", type: :request do
 
   context 'logins errors' do
     it 'bad email' do
-      post login_path, params: { login: { email: 'nouser@domain.com', password: 'my-secret' } }
+      post login_path, params: { user: { email: 'nouser@domain.com', password: 'my-secret' } }
       expect(response.body).to include('Invalid logins email.')
     end
 
     it 'bad password' do
-      post login_path, params: { login: { email: 'user@domain.com', password: 'bad-secret' } }
+      post login_path, params: { user: { email: 'user@domain.com', password: 'bad-secret' } }
       expect(response.body).to include('Invalid password.')
     end
   end

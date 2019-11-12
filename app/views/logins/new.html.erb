@@ -1,2 +1,7 @@
-<h1>Login#new</h1>
-<p>Find me in app/views/login/new.html.erb</p>
+<%= form_for @user do |f| %>
+  <% fi = FormItem.new(f) %>
+
+  <%= fi.text_field(:email, 'email') %>
+  <%= fi.password(:password, 'password') %>
+  <%= fi.submit('login') %>
+<% end %>

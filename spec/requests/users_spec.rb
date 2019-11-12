@@ -179,12 +179,12 @@ RSpec.describe "Users", type: :request do
   #
 
   def admin_login
-    post login_path, params: { login: { email: @admin.email, password: @admin_password } }
+    post login_path, params: { user: { email: @admin.email, password: @admin_password } }
     follow_redirect!
   end
 
   def basic_login
-    post login_path, params: { login: { email: @basic.email, password: @basic_password } }
+    post login_path, params: { user: { email: @basic.email, password: @basic_password } }
     follow_redirect!
   end
 
