@@ -8,10 +8,13 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'sass-rails', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootstrap', '~> 4.3.1'
+gem 'jquery-rails'
 
+gem 'bcrypt', '~> 3.1.7'
 gem 'pundit'
+
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Puma as the app server
 #gem 'puma', '~> 3.11'
