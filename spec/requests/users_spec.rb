@@ -66,8 +66,47 @@ RSpec.describe "Users", type: :request do
   end
 
   context 'authorized but invalid operations' do
-    pending 'create with duplicate email'
-    pending 'etc etc'
+    before(:each) { admin_login }
+
+    it 'create with duplicate email' do
+      post users_path, params: { user: { email: @basic.email, password: 'new-secret' } }
+      expect(response.body).to include('Email has already been taken')
+    end
+
+    it 'create with invalid email' do
+      post users_path, params: { user: { email: 'bad-format', password: 'new-secret' } }
+      expect(response.body).to include('Email is invalid')
+    end
+
+    it 'create with email blank' do
+      post users_path, params: { user: { email: '', password: 'new-secret' } }
+      expect(response.body).to include("Email is invalid")
+    end
+
+    it 'create with email missing' do
+      post users_path, params: { user: { password: 'new-secret' } }
+      expect(response.body).to include("Email is invalid")
+    end
+
+    it 'create with confirmation emails not matching' do
+      post users_path, params: { user: { email: 'some-email@domain.com', password: 'new-secret', password_confirmation: 'bad-secret' } }
+      expect(response.body).to include("Password confirmation doesn't match")
+    end
+
+    it 'create with password too short' do
+      post users_path, params: { user: { email: 'some-email@domain.com', password: 'pass' } }
+      expect(response.body).to include('Password is too short')
+    end
+
+    it 'create with password blank' do
+      post users_path, params: { user: { email: 'some-email@domain.com', password: '' } }
+      expect(response.body).to include("Password can't be blank")
+    end
+
+    it 'create with password missing' do
+      post users_path, params: { user: { email: 'some-email@domain.com' } }
+      expect(response.body).to include("Password can't be blank")
+    end
   end
 
   context 'basic user access denied' do
@@ -141,10 +180,12 @@ RSpec.describe "Users", type: :request do
 
   def admin_login
     post login_path, params: { login: { email: @admin.email, password: @admin_password } }
+    follow_redirect!
   end
 
   def basic_login
     post login_path, params: { login: { email: @basic.email, password: @basic_password } }
+    follow_redirect!
   end
 
   def valid_user_edit(user)

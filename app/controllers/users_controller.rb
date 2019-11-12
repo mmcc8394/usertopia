@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to user_path(@user), notice: 'New user created.'
     else
+      flash[:alert] = @user.errors.full_messages.join('<br />')
       render action: :new
     end
   end
