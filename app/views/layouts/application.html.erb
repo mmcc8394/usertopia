@@ -22,7 +22,9 @@
         <div class="flash flash-<%= key %>"><%= value.html_safe %></div>
       <% end %>
 
-      <%= yield %>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
