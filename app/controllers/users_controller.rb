@@ -38,6 +38,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User info updated.'
     else
+      flash[:alert] = @user.errors.full_messages.join('<br />')
       render action: :edit
     end
   end
