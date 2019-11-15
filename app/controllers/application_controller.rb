@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:alert] = 'Access denied. You must login as an authorized user.'
-    redirect_to new_login_path
+    redirect_to root_path, alert: 'Access denied. You must login as an authorized user.'
   end
 end
