@@ -22,9 +22,11 @@
         <div class="flash flash-<%= key %>"><%= value.html_safe %></div>
       <% end %>
 
-      <div class="container">
-        <%= yield %>
-      </div>
+      <section id="navigation" class="text-right">
+        <%= link_to 'home', root_path %>
+      </section>
+
+      <%= yield %>
     </div>
   </body>
 </html>

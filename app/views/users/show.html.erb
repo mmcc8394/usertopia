@@ -1,8 +1,12 @@
 <h1>User Details</h1>
 
-<div class="mb-2 text-right">
-  <%= link_to edit_user_path(current_user), class: 'm-4', title: 'edit' do %>
-    <%= octicon 'pencil', height: 24, 'aria-label': 'edit' %>
+<div class="mb-2 mr-5 text-right">
+  <%= link_to edit_user_path(current_user), class: 'm-3', title: 'edit info' do %>
+    <%= octicon 'pencil', height: 24, 'aria-label': 'edit info' %>
+  <% end %>
+
+  <%= link_to edit_password_user_path(current_user), title: 'change password' do %>
+    <%= octicon 'shield-lock', height: 24, 'aria-label': 'change password' %>
   <% end %>
 </div>
 

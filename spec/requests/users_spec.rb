@@ -23,25 +23,38 @@ RSpec.describe "Users", type: :request do
       expect_user_shown(@basic)
     end
 
-    it 'create a new user' do
+    it 'loads the new user page' do
       get new_user_path
       expect(response).to have_http_status(200)
+    end
+
+    it 'create a new user' do
       post users_path, params: { user: { email: 'new-email@domain.com', password: 'new-secret' } }
-      expect(response).to have_http_status(302)
-      follow_redirect!
-      expect(response.body).to include('New user created.')
+      verify_success_and_follow_with_text('New user created.')
       expect(User.all.order(:id).last.email).to eq('new-email@domain.com')
+    end
+
+    it 'loads the edit user page' do
+      get edit_user_path(@admin)
+      expect(response).to have_http_status(200)
     end
 
     it 'edit another user' do
       valid_user_edit(@basic)
     end
 
+    it 'loads the edit password page' do
+      get edit_password_user_path(@admin)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'change password' do
+      valid_user_password_change(@admin)
+    end
+
     it 'deletes a non-admin user' do
       delete user_path(@basic)
-      expect(response).to have_http_status(302)
-      follow_redirect!
-      expect(response.body).to include('User deleted.')
+      verify_success_and_follow_with_text('User deleted.')
       expect(User.find_by_id(@basic.id)).to be_nil
     end
 
@@ -49,6 +62,22 @@ RSpec.describe "Users", type: :request do
       new_admin = User.create!({ email: 'new-admin@domain.com', password: 'some-secret', role: 'admin' })
       delete user_path(new_admin)
       expect_access_denied
+    end
+  end
+
+  context 'editing user info and passwords' do
+    before(:each) { admin_login }
+
+    it 'ignore password updates in an edit' do
+      put user_path(@admin), params: { user: { email: 'new-email@domain.com', password: 'ignore-password' } }
+      verify_success_and_follow_with_text('User info updated.')
+      expect(User.find_by_id(@admin.id).authenticate(@admin_password)).to be_truthy
+    end
+
+    it 'ignore user info update in password change' do
+      put update_password_user_path(@admin), params: { user: { email: 'ignore-email@domain.com', password: 'ignore-password' } }
+      verify_success_and_follow_with_text('User password changed.')
+      expect(User.find_by_id(@admin.id).email).to_not eq('ignore-email@domain.com')
     end
   end
 
@@ -60,8 +89,12 @@ RSpec.describe "Users", type: :request do
       expect_user_shown(@basic)
     end
 
-    it 'edit themselves' do
+    it 'edit their user data' do
       valid_user_edit(@basic)
+    end
+
+    it 'change their password' do
+      valid_user_password_change(@basic)
     end
   end
 
@@ -134,7 +167,15 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'update another user' do
-      put user_path(@admin), params: { user: { email: 'junk@domain.com', password: 'some-secret' } }
+      put user_path(@admin), params: { user: { email: 'junk@domain.com' } }
+    end
+
+    it 'edt another user password' do
+      get edit_password_user_path(@admin)
+    end
+
+    it 'update another user password' do
+      put update_password_user_path(@admin), params: { user: { password: 'new-secret', password_confirmation: 'new-secret' } }
     end
 
     it 'destroy' do
@@ -178,6 +219,16 @@ RSpec.describe "Users", type: :request do
   # TODO: Most of these should probably all be in a helper file somewhere.
   #
 
+  def verify_success_and_follow
+    expect(response).to have_http_status(302)
+    follow_redirect!
+  end
+
+  def verify_success_and_follow_with_text(text)
+    verify_success_and_follow
+    expect(response.body).to include(text)
+  end
+
   def admin_login
     post login_path, params: { user: { email: @admin.email, password: @admin_password } }
     follow_redirect!
@@ -189,13 +240,15 @@ RSpec.describe "Users", type: :request do
   end
 
   def valid_user_edit(user)
-    get edit_user_path(user)
-    expect(response).to have_http_status(200)
-    put user_path(user), params: { user: { email: 'new-email@domain.com', password: 'new-secret' } }
-    expect(response).to have_http_status(302)
-    follow_redirect!
-    expect(response.body).to include('User info updated.')
+    put user_path(user), params: { user: { email: 'new-email@domain.com' } }
+    verify_success_and_follow_with_text('User info updated.')
     expect(User.find_by_id(@basic.id).try(:email)).to eq('new-email@domain.com')
+  end
+
+  def valid_user_password_change(user)
+    put update_password_user_path(user), params: { user: { password: 'new-secret', password_confirmation: 'new-secret' } }
+    verify_success_and_follow_with_text('User password changed.')
+    expect(User.find_by_id(user.id).authenticate('new-secret')).to be_truthy
   end
 
   def expect_user_shown(user)
@@ -204,8 +257,6 @@ RSpec.describe "Users", type: :request do
   end
 
   def expect_access_denied
-    expect(response).to have_http_status(302)
-    follow_redirect!
-    expect(response.body).to include('Access denied. You must login as an authorized user.')
+    verify_success_and_follow_with_text('Access denied. You must login as an authorized user.')
   end
 end

@@ -23,6 +23,14 @@ class UserPolicy < ApplicationPolicy
     user.admin? || itself?
   end
 
+  def edit_password?
+    user.admin? || itself?
+  end
+
+  def update_password?
+    user.admin? || itself?
+  end
+
   def destroy?
     user.admin? && !record.admin?
   end
