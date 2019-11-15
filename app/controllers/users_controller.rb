@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in?
+  before_action :verify_logged_in
 
   def index
     authorize(User)

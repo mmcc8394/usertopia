@@ -7,7 +7,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  helper_method :logged_in?
   def logged_in?
+    !current_user.nil?
+  end
+
+  def verify_logged_in
     user_not_authorized if current_user.nil?
   end
 
