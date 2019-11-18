@@ -5,7 +5,7 @@ class FormSubmit < FormItem
     ''
   end
 
-  def form_item(field, placeholder)
-    @form.submit(placeholder, class: 'btn btn-primary')
+  def form_item(field, options)
+    @form.submit(options[:submit_text], class: 'btn btn-primary')
   end
 end

@@ -6,6 +6,7 @@
       <% fi = FormItem.new(f) %>
 
       <%= fi.text_field(:email, 'email') %>
+      <%= fi.checkbox_collection(:roles, User.roles.values, :to_s, :to_s) %>
       <%= fi.submit('Make it happen!') %>
     <% end %>
   </div>

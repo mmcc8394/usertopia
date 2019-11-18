@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Login", type: :request do
   before(:each) do
-    @user = User.new({ email: 'user@domain.com', password: 'my-secret' })
-    @user.save!
+    @user = User.create!({ email: 'user@domain.com', password: 'my-secret', roles: [ 'basic' ] })
     get new_login_path
   end
 

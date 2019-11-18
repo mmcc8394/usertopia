@@ -15,6 +15,7 @@ gem 'octicons_helper'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'pundit'
+gem 'enumerize'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 

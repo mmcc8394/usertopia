@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :verify_logged_in
+  before_action :filter_array_of_empty_strings, only: [ :create, :update ]
 
   def index
     authorize(User)
@@ -69,12 +70,17 @@ class UsersController < ApplicationController
 
   private
 
+  def filter_array_of_empty_strings
+    return unless params && params[:user] && params[:user][:roles]
+    params[:user][:roles].filter! { |role| role.present? }
+  end
+
   def user_params_create
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, roles: [])
   end
 
   def user_params_update
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:email, roles: [])
   end
 
   def user_params_password_update

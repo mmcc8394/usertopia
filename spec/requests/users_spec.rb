@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   before(:each) do
     @admin_password = 'admin-secret'
-    @admin = User.create!({ email: 'admin@domain.com', password: @admin_password, role: 'admin' })
+    @admin = User.create!({ email: 'admin@domain.com', password: @admin_password, roles: [ 'admin' ] })
 
     @basic_password = 'basic-secret'
-    @basic = User.create!({ email: 'basic@domain.com', password: @basic_password })
+    @basic = User.create!({ email: 'basic@domain.com', password: @basic_password, roles: [ 'basic' ] })
   end
 
   context 'admin can access everything' do
@@ -29,7 +29,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'create a new user' do
-      post users_path, params: { user: { email: 'new-email@domain.com', password: 'new-secret' } }
+      post users_path, params: { user: { email: 'new-email@domain.com', password: 'new-secret', roles: [ 'basic' ] } }
       verify_success_and_follow_with_text('New user created.')
       expect(User.all.order(:id).last.email).to eq('new-email@domain.com')
     end
@@ -59,7 +59,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'does not allow delete of admin user' do
-      new_admin = User.create!({ email: 'new-admin@domain.com', password: 'some-secret', role: 'admin' })
+      new_admin = User.create!({ email: 'new-admin@domain.com', password: 'some-secret', roles: [ 'admin' ] })
       delete user_path(new_admin)
       expect_access_denied
     end

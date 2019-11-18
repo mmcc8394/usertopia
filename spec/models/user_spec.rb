@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:each) { @user = User.new({ email: 'user@domain.com', password: 'some-secret', password_confirmation: 'some-secret' }) }
+  before(:each) { @user = User.new({ email: 'user@domain.com', password: 'some-secret', password_confirmation: 'some-secret', roles: [ 'basic' ] }) }
 
   context 'successful CRUD operations' do
     it 'creates' do
@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
 
     it 'duplicate email' do
       @user.save
-      @user = User.new({ email: 'user@domain.com', password: 'new-secret', password_confirmation: 'new-secret' })
+      @user = User.new({ email: 'user@domain.com', password: 'new-secret', password_confirmation: 'new-secret', roles: [ 'basic' ] })
     end
   end
 
@@ -86,8 +86,27 @@ RSpec.describe User, type: :model do
     end
 
     it 'duplicate email' do
-      User.create!({ email: 'second@domain.com', password: 'new-secret', password_confirmation: 'new-secret' })
+      User.create!({ email: 'second@domain.com', password: 'new-secret', password_confirmation: 'new-secret', roles: [ 'basic' ] })
       expect(@user.update({ email: 'second@domain.com' })).to eq(false)
+    end
+  end
+
+  context 'roles' do
+    it 'has a single role' do
+      @user.save!
+      expect(User.first.basic?).to eq(true)
+    end
+
+    it 'has multiple roles' do
+      @user.roles = %w(basic auditor)
+      @user.save!
+      expect(User.first.basic?).to eq(true)
+      expect(User.first.auditor?).to eq(true)
+    end
+
+    it 'does not have a role' do
+      @user.save!
+      expect(User.first.admin?).to eq(false)
     end
   end
 end
