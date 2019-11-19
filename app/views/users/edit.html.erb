@@ -6,7 +6,7 @@
       <% fi = FormItem.new(f) %>
 
       <%= render partial: 'user_info', locals: { form_item: fi } %>
-      <%= fi.submit('Make it happen!') %>
+      <%= fi.submit_with_cancel('Make it happen!') %>
     <% end %>
   </div>
 </div>

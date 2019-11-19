@@ -32,6 +32,10 @@ class FormItem
     FormSubmit.new(@form).build_form_item(nil, { submit_text: text })
   end
 
+  def submit_with_cancel(text)
+    FormSubmitWithCancel.new(@form).build_form_item(nil, { submit_text: text })
+  end
+
   private
 
   def start_form_group

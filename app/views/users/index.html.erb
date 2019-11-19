@@ -9,6 +9,10 @@
     <tr>
       <td><%= user.email %></td>
       <td>
+        <%= link_to user_path(user), class: 'm-3', title: 'edit info' do %>
+          <%= octicon 'eye', height: 24, 'aria-label': 'edit info' %>
+        <% end %>
+
         <%= link_to edit_user_path(user), class: 'm-3', title: 'edit info' do %>
           <%= octicon 'pencil', height: 24, 'aria-label': 'edit info' %>
         <% end %>
