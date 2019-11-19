@@ -12,6 +12,7 @@
       <td>
         <%= action_link(user_path(user), 'eye', 'view user') %>
         <%= action_link(edit_user_path(user), 'pencil', 'edit user') %>
+        <%= action_link(edit_password_user_path(user), 'shield-lock', 'change password') %>
         <%= action_link_delete(user_path(user)) %>
       </td>
     </tr>
