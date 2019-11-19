@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     authorize(User)
     @user = User.new(user_params_create)
     if @user.save
-      redirect_to user_path(@user), notice: 'New user created.'
+      redirect_to users_path, notice: 'New user created.'
     else
       flash[:alert] = @user.errors.full_messages.join('<br />')
       render action: :new
