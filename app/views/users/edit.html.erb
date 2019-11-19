@@ -5,8 +5,7 @@
     <%= form_for @user do |f| %>
       <% fi = FormItem.new(f) %>
 
-      <%= fi.text_field(:email, 'email') %>
-      <%= fi.checkbox_collection(:roles, User.roles.values, :to_s, :to_s) %>
+      <%= render partial: 'user_info', locals: { form_item: fi } %>
       <%= fi.submit('Make it happen!') %>
     <% end %>
   </div>

@@ -1,9 +1,22 @@
 <h1>List of Users</h1>
 
-<table>
+<p>
+  <%= link_to 'Add New User', new_user_path %>
+</p>
+
+<table class="table">
   <% @users.each do |user| %>
     <tr>
       <td><%= user.email %></td>
+      <td>
+        <%= link_to edit_user_path(user), class: 'm-3', title: 'edit info' do %>
+          <%= octicon 'pencil', height: 24, 'aria-label': 'edit info' %>
+        <% end %>
+
+        <%= link_to user_path(user), method: :delete, class: 'm-3', title: 'edit info' do %>
+          <%= octicon 'trashcan', height: 24, 'aria-label': 'edit info' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
