@@ -18,6 +18,10 @@ class User < ApplicationRecord
     update(params)
   end
 
+  def print_roles
+    roles.values.join(', ')
+  end
+
   private
 
   def skip_password_validation?
