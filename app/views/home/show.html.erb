@@ -2,7 +2,10 @@
 
 <ul>
   <% if logged_in? %>
-    <li><%= link_to 'all users', users_path %></li>
+    <% if policy(User).index? %>
+      <li><%= link_to 'all users', users_path %></li>
+    <% end %>
+
     <li><%= link_to 'your profile', user_path(current_user) %></li>
     <li><%= link_to 'logout', login_path, method: :delete %></li>
   <% else %>

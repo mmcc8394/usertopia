@@ -3,7 +3,9 @@
 <div class="mb-2 mr-5 text-right">
   <%= action_link(edit_user_path(@user), 'pencil', 'edit user') %>
   <%= action_link(edit_password_user_path(@user), 'shield-lock', 'change password') %>
-  <%= action_link_delete(user_path(@user)) %>
+  <% if policy(@user).destroy? %>
+    <%= action_link_delete(user_path(@user)) %>
+  <% end %>
 </div>
 
 <table class="table">
