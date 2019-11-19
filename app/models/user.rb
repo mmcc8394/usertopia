@@ -13,6 +13,8 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, unless: :skip_password_validation?
 
+  scope :active, -> { where('deleted = false') }
+
   def update_non_password_attributes(params)
     @skip_password_validation = true
     update(params)
@@ -20,6 +22,10 @@ class User < ApplicationRecord
 
   def print_roles
     roles.values.join(', ')
+  end
+
+  def destroy
+    update_non_password_attributes({ deleted: true })
   end
 
   private

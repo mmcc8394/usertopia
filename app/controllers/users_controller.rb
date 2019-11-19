@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     authorize(User)
-    @users = User.all
+    @users = User.active
   end
 
   def show
