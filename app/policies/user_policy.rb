@@ -20,7 +20,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || itself?
+    user.admin? || (itself? && !updating_roles?)
   end
 
   def edit_password?
@@ -39,5 +39,9 @@ class UserPolicy < ApplicationPolicy
 
   def itself?
     user.id == record.id
+  end
+
+  def updating_roles?
+    user.roles.values.sort != record.roles.values.sort
   end
 end

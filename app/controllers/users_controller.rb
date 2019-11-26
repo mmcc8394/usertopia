@@ -35,6 +35,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
+    #
+    # Need to set a user's new role(s) before calling authorize or the policy will always pass
+    # because if the current_user is the same as @user at this point, then the user_policy function
+    # updating_roles? will always pass.
+    #
+    set_roles_if_submitted
     authorize(@user)
 
     if @user.update_non_password_attributes(user_params_update)
@@ -86,5 +93,10 @@ class UsersController < ApplicationController
 
   def user_params_password_update
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def set_roles_if_submitted
+    return if params[:user].try(:[], :roles).blank?
+    @user.roles = params[:user][:roles]
   end
 end

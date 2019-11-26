@@ -55,7 +55,7 @@ RSpec.describe "Users", type: :request do
     it 'deletes a non-admin user' do
       delete user_path(@basic)
       verify_success_and_follow_with_text('User deleted.')
-      expect(User.find_by_id(@basic.id)).to be_nil
+      expect(User.find_by_id(@basic.id).deleted?).to eq(true)
     end
 
     it 'does not allow delete of admin user' do
@@ -63,10 +63,6 @@ RSpec.describe "Users", type: :request do
       delete user_path(new_admin)
       expect_access_denied
     end
-  end
-
-  context 'editing user info and passwords' do
-    before(:each) { admin_login }
 
     it 'ignore password updates in an edit' do
       put user_path(@admin), params: { user: { email: 'new-email@domain.com', password: 'ignore-password' } }
@@ -89,7 +85,7 @@ RSpec.describe "Users", type: :request do
       expect_user_shown(@basic)
     end
 
-    it 'edit their user data' do
+    it 'edit their user data except role' do
       valid_user_edit(@basic)
     end
 
@@ -180,6 +176,10 @@ RSpec.describe "Users", type: :request do
 
     it 'destroy' do
       delete user_path(@basic)
+    end
+
+    it 'edit role(s)' do
+      put user_path(@basic), params: { user: { roles: [ 'admin' ] } }
     end
   end
 
