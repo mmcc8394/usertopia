@@ -1,14 +1,1 @@
 <h1>Build your home page here.</h1>
-
-<ul>
-  <% if logged_in? %>
-    <% if policy(User).index? %>
-      <li><%= link_to 'all users', users_path %></li>
-    <% end %>
-
-    <li><%= link_to 'your profile', user_path(current_user) %></li>
-    <li><%= link_to 'logout', login_path, method: :delete %></li>
-  <% else %>
-    <li><%= link_to 'login', new_login_path %></li>
-  <% end %>
-</ul>
