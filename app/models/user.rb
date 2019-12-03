@@ -28,6 +28,15 @@ class User < ApplicationRecord
     update_non_password_attributes({ deleted: true })
   end
 
+  def generate_password_reset_guid
+    update({ password_reset_guid: SecureRandom.uuid })
+    password_reset_guid
+  end
+
+  def clear_password_reset_guid
+    update({ password_reset_guid: nil })
+  end
+
   private
 
   def skip_password_validation?

@@ -91,6 +91,29 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'password reset' do
+    before(:each) { @user.save! }
+
+    it 'should be nil to start' do
+      expect(@user.password_reset_guid).to be_nil
+    end
+
+    it 'generate a valid password reset guid' do
+      expect(@user.generate_password_reset_guid).to match(/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$/)
+    end
+
+    it 'retrieve password reset guid' do
+      link = @user.generate_password_reset_guid
+      expect(@user.password_reset_guid).to eq(link)
+    end
+
+    it 'clear reset guid' do
+      @user.generate_password_reset_guid
+      @user.clear_password_reset_guid
+      expect(@user.password_reset_guid).to be_nil
+    end
+  end
+
   context 'roles' do
     it 'has a single role' do
       @user.save!
@@ -104,9 +127,19 @@ RSpec.describe User, type: :model do
       expect(User.first.auditor?).to eq(true)
     end
 
-    it 'does not have a role' do
-      @user.save!
-      expect(User.first.admin?).to eq(false)
+    it 'fails if nil roles' do
+      @user.roles = nil
+      expect(@user.save).to eq(false)
+    end
+
+    it 'fails if empty roles' do
+      @user.roles = []
+      expect(@user.save).to eq(false)
+    end
+
+    it 'fails if invalid role set' do
+      @user.roles = [ 'junk_role' ]
+      expect(@user.save).to eq(false)
     end
   end
 end

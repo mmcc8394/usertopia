@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       get 'edit_password'
       put 'update_password'
+      get 'password_reset'
     end
   end
 
