@@ -7,7 +7,7 @@ RSpec.describe UserMailer, type: :mailer do
     before(:each) { @mail = UserMailer.welcome(@user) }
 
     it 'queues up welcome email' do
-      expect { @mail.deliver_later }.to have_enqueued_job(ActionMailer::MailDeliveryJob).with('UserMailer', 'welcome', 'deliver_now', { args: [ @user ] })
+      email_queued?('welcome')
     end
 
     it 'from email' do
@@ -31,7 +31,7 @@ RSpec.describe UserMailer, type: :mailer do
     before(:each) { @mail = UserMailer.reset_password_link(@user) }
 
     it 'queues up reset password email' do
-      expect { @mail.deliver_later }.to have_enqueued_job(ActionMailer::MailDeliveryJob).with('UserMailer', 'reset_password_link', 'deliver_now', { args: [ @user ] })
+      email_queued?('reset_password_link')
     end
 
     it 'from email' do
@@ -51,5 +51,33 @@ RSpec.describe UserMailer, type: :mailer do
     end
   end
 
-  pending 'password reset'
+  context 'password changed (or reset)' do
+    before(:each) { @mail = UserMailer.password_changed(@user) }
+
+    it 'queues up reset password email' do
+      email_queued?('password_changed')
+    end
+
+    it 'from email' do
+      expect(@mail.from).to eq([ 'from@example.com' ])
+    end
+
+    it 'to email' do
+      expect(@mail.to).to eq([ @user.email ])
+    end
+
+    it 'subject line' do
+      expect(@mail.subject).to eq('Your Password Has Been Changed')
+    end
+
+    it 'body' do
+      expect(@mail.body.encoded).to match("If this wasn't you, please contact us immediately.")
+    end
+  end
+
+  private
+
+  def email_queued?(method)
+    expect { @mail.deliver_later }.to have_enqueued_job(ActionMailer::MailDeliveryJob).with('UserMailer', method, 'deliver_now', { args: [ @user ] })
+  end
 end

@@ -8,4 +8,8 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: 'Password Reset Link')
   end
+
+  def password_changed(user)
+    mail(to: user.email, subject: 'Your Password Has Been Changed')
+  end
 end
