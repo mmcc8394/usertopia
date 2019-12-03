@@ -82,45 +82,10 @@ RSpec.describe "UsersAdmin", type: :request do
       expect(User.find_by_id(@admin.id).email).to_not eq('ignore-email@domain.com')
     end
 
-    it 'create with duplicate email' do
+    it 'authorized but invalid operation (duplicate email but it could be anything)' do
       create_basic_user
       post users_path, params: { user: { email: @basic.email, password: 'new-secret' } }
       expect(response.body).to include('Email has already been taken')
-    end
-
-    it 'create with invalid email' do
-      post users_path, params: { user: { email: 'bad-format', password: 'new-secret' } }
-      expect(response.body).to include('Email is invalid')
-    end
-
-    it 'create with email blank' do
-      post users_path, params: { user: { email: '', password: 'new-secret' } }
-      expect(response.body).to include("Email is invalid")
-    end
-
-    it 'create with email missing' do
-      post users_path, params: { user: { password: 'new-secret' } }
-      expect(response.body).to include("Email is invalid")
-    end
-
-    it 'create with confirmation emails not matching' do
-      post users_path, params: { user: { email: 'some-email@domain.com', password: 'new-secret', password_confirmation: 'bad-secret' } }
-      expect(response.body).to include("Password confirmation doesn't match")
-    end
-
-    it 'create with password too short' do
-      post users_path, params: { user: { email: 'some-email@domain.com', password: 'pass' } }
-      expect(response.body).to include('Password is too short')
-    end
-
-    it 'create with password blank' do
-      post users_path, params: { user: { email: 'some-email@domain.com', password: '' } }
-      expect(response.body).to include("Password can't be blank")
-    end
-
-    it 'create with password missing' do
-      post users_path, params: { user: { email: 'some-email@domain.com' } }
-      expect(response.body).to include("Password can't be blank")
     end
   end
 
