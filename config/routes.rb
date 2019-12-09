@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   get 'home/show'
 
-  resource :login, only: [ :new, :create, :destroy ]
+  resource :login, except: [ :index ] do
+    collection do
+      post 'request_password_reset'
+    end
+  end
+
   resources :users do
     member do
       get 'edit_password'

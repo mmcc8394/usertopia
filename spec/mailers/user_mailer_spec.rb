@@ -54,7 +54,7 @@ RSpec.describe UserMailer, type: :mailer do
   context 'password changed (or reset)' do
     before(:each) { @mail = UserMailer.password_changed(@user) }
 
-    it 'queues up reset password email' do
+    it 'queues up changed password email' do
       email_queued?('password_changed')
     end
 
