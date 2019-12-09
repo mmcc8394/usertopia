@@ -15,6 +15,11 @@ class User < ApplicationRecord
 
   scope :active, -> { where('deleted = false') }
 
+  def self.by_password_guid(guid)
+    return nil if guid.blank?
+    find_by_password_reset_guid(guid)
+  end
+
   def update_non_password_attributes(params)
     @skip_password_validation = true
     update(params)

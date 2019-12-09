@@ -31,7 +31,7 @@ class LoginsController < ApplicationController
   end
 
   def update
-    @user = User.find_by_password_reset_guid(params[:guid])
+    @user = User.by_password_guid(params[:guid])
     if @user
       reset_password
     else

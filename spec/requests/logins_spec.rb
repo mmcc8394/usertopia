@@ -79,10 +79,34 @@ RSpec.describe "Login", type: :request do
   end
 
   context 'password reset - cannot' do
-    pending 'use an invalid email'
-    pending 'access reset password without a guid'
-    pending 'access reset password without an invalid guid'
-    pending 'access reset password without an expired guid'
+    it 'request reset password with invalid email' do
+      post request_password_reset_login_path, params: { email: 'bad@email.com' }
+      verify_success_and_follow_with_text('Invalid email.')
+    end
+
+    it 'reset password without a guid' do
+      put login_path, params: { user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      verify_success_and_follow_with_text('Invalid ID.')
+    end
+
+    it 'reset password with invalid guid (user has no guid)' do
+      put login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      verify_success_and_follow_with_text('Invalid ID.')
+    end
+
+    it 'reset password with invalid guid (user has guid)' do
+      @basic.generate_password_reset_guid
+      put login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      verify_success_and_follow_with_text('Invalid ID.')
+    end
+
+    it 'reset password with an expired guid' do
+      guid = @basic.generate_password_reset_guid
+      put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      verify_success_and_follow_with_text('Password changed.')
+      put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      verify_success_and_follow_with_text('Invalid ID.')
+    end
   end
 
   private
