@@ -69,7 +69,7 @@ class LoginsController < ApplicationController
   def send_reset_password_email
     return if @user.nil?
 
-    if @user.update_non_password_attributes({ password_reset_guid: SecureRandom.uuid })
+    if @user.update({ password_reset_guid: SecureRandom.uuid })
       UserMailer.reset_password_link(@user).deliver_later
       redirect_to new_login_path, notice: 'Password reset email sent.'
     else
@@ -82,7 +82,7 @@ class LoginsController < ApplicationController
     return if @user.nil?
 
     @user.password_reset_guid = nil
-    if @user.update_non_password_attributes(password_reset_params)
+    if @user.update(password_reset_params)
       UserMailer.password_changed(@user).deliver_later
       redirect_to new_login_path, notice: 'Password changed.'
     else

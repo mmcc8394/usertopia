@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     set_roles_if_submitted
     authorize(@user)
 
-    if @user.update_non_password_attributes(user_params_update)
+    if @user.update(user_params_update)
       redirect_to user_path(@user), notice: 'User info updated.'
     else
       flash[:alert] = @user.errors.full_messages.join('<br />')
