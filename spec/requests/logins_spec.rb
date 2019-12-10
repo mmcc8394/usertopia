@@ -46,9 +46,15 @@ RSpec.describe "Login", type: :request do
   end
 
   context 'password reset - can' do
+    it 'view password reset email' do
+      get lost_password_email_login_path
+      expect(response.body).to include('Lost Password Email')
+    end
+
     it 'create reset guid with a valid email' do
       request_password_reset
       verify_success_and_follow_with_text('Password reset email sent.')
+      expect(User.find(@basic.id).password_reset_guid).to_not be_nil
     end
 
     it 'sends reset email' do
@@ -58,6 +64,7 @@ RSpec.describe "Login", type: :request do
     it 'use valid guid to reset password' do
       reset_password
       verify_success_and_follow_with_text('Password changed.')
+      expect(User.find(@basic.id).password_reset_guid).to be_nil
     end
 
     it 'sends passwword changed email' do
@@ -74,13 +81,11 @@ RSpec.describe "Login", type: :request do
       post login_path, params: { user: { email: @basic.email, password: 'new-secret' } }
       expect(session[:user_id]).to eq(@basic.id)
     end
-
-    pending 'view reset dialogue'
   end
 
   context 'password reset - cannot' do
     it 'request reset password with invalid email' do
-      post request_password_reset_login_path, params: { email: 'bad@email.com' }
+      post request_password_reset_login_path, params: { user: { email: 'bad@email.com' } }
       verify_success_and_follow_with_text('Invalid email.')
     end
 
@@ -95,13 +100,14 @@ RSpec.describe "Login", type: :request do
     end
 
     it 'reset password with invalid guid (user has guid)' do
-      @basic.generate_password_reset_guid
+      @basic.update_attribute(:password_reset_guid, SecureRandom.uuid)
       put login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Invalid ID.')
     end
 
     it 'reset password with an expired guid' do
-      guid = @basic.generate_password_reset_guid
+      guid = SecureRandom.uuid
+      @basic.update_attribute(:password_reset_guid, guid)
       put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Password changed.')
       put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
@@ -112,10 +118,11 @@ RSpec.describe "Login", type: :request do
   private
 
   def request_password_reset
-    post request_password_reset_login_path, params: { email: @basic.email }
+    post request_password_reset_login_path, params: { user: { email: @basic.email } }
   end
 
   def reset_password
-    put login_path, params: { guid: @basic.generate_password_reset_guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+    @basic.update_attribute(:password_reset_guid, SecureRandom.uuid)
+    put login_path, params: { guid: @basic.password_reset_guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
   end
 end

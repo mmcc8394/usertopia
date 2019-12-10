@@ -28,7 +28,10 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   context 'reset password request' do
-    before(:each) { @mail = UserMailer.reset_password_link(@user) }
+    before(:each) do
+      @user.update_attribute(:password_reset_guid, SecureRandom.uuid)
+      @mail = UserMailer.reset_password_link(@user)
+    end
 
     it 'queues up reset password email' do
       email_queued?('reset_password_link')

@@ -39,6 +39,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v6.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v6.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v6.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="addressable (v2.7.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autoprefixer-rails (v9.7.3, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.13, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="better_errors (v2.5.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
@@ -61,6 +62,8 @@
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.7.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.3.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="launchy (v2.4.3, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="letter_opener (v1.7.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="listen (v3.1.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.4.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
@@ -73,15 +76,16 @@
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.3.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.2, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.10.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="octicons (v9.2.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="octicons_helper (v9.2.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="octicons (v9.3.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="octicons_helper (v9.3.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v1.1.4, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="popper_js (v1.14.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pundit (v2.1.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.0.7, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-proxy (v0.6.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v1.1.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rails (v6.0.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rails (v6.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-dom-testing (v2.0.3, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.3.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v6.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
@@ -110,7 +114,7 @@
     <orderEntry type="library" scope="PROVIDED" name="turbolinks-source (v5.2.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v1.2.5, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.0.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="webpacker (v4.0.7, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="webpacker (v4.2.0, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.7.1, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-extensions (v0.1.4, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="zeitwerk (v2.2.2, RVM: ruby-2.6.2 [easy_bake]) [gem]" level="application" />

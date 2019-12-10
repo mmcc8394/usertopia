@@ -15,11 +15,14 @@ class LoginsController < ApplicationController
     end
   end
 
+  def lost_password_email
+    @user = User.new
+  end
+
   def request_password_reset
-    @user = User.find_by_email(params[:email])
+    @user = User.find_by_email(params[:user][:email])
     if @user
-      UserMailer.reset_password_link(@user).deliver_later
-      redirect_to new_login_path, notice: 'Password reset email sent.'
+      send_reset_password_email
     else
       flash[:alert] = 'Invalid email.'
       redirect_to new_login_path
@@ -27,7 +30,11 @@ class LoginsController < ApplicationController
   end
 
   def edit
-    # TODO: Allow the user to enter a new password (with a valid GUID)
+    @user = User.by_password_guid(params[:guid])
+    if @user.nil?
+      flash[:alert] = 'Invalid ID.'
+      redirect_to new_login_path
+    end
   end
 
   def update
@@ -48,6 +55,8 @@ class LoginsController < ApplicationController
   private
 
   def login_user
+    return if @user.nil?
+
     if @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to root_path, notice: 'Successfully logged in.'
@@ -57,9 +66,23 @@ class LoginsController < ApplicationController
     end
   end
 
+  def send_reset_password_email
+    return if @user.nil?
+
+    if @user.update_non_password_attributes({ password_reset_guid: SecureRandom.uuid })
+      UserMailer.reset_password_link(@user).deliver_later
+      redirect_to new_login_path, notice: 'Password reset email sent.'
+    else
+      flash[:alert] = @user.errors.full_messages.join('<br />')
+      render action: :lost_password_email
+    end
+  end
+
   def reset_password
-    if @user.update(password_reset_params)
-      @user.clear_password_reset_guid
+    return if @user.nil?
+
+    @user.password_reset_guid = nil
+    if @user.update_non_password_attributes(password_reset_params)
       UserMailer.password_changed(@user).deliver_later
       redirect_to new_login_path, notice: 'Password changed.'
     else

@@ -97,21 +97,6 @@ RSpec.describe User, type: :model do
     it 'should be nil to start' do
       expect(@user.password_reset_guid).to be_nil
     end
-
-    it 'generate a valid password reset guid' do
-      expect(@user.generate_password_reset_guid).to match(/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$/)
-    end
-
-    it 'retrieve password reset guid' do
-      link = @user.generate_password_reset_guid
-      expect(@user.password_reset_guid).to eq(link)
-    end
-
-    it 'clear reset guid' do
-      @user.generate_password_reset_guid
-      @user.clear_password_reset_guid
-      expect(@user.password_reset_guid).to be_nil
-    end
   end
 
   context 'roles' do

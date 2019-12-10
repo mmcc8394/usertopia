@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resource :login, except: [ :index ] do
     collection do
+      get 'lost_password_email'
       post 'request_password_reset'
     end
   end
@@ -11,7 +12,6 @@ Rails.application.routes.draw do
     member do
       get 'edit_password'
       put 'update_password'
-      get 'password_reset'
     end
   end
 
