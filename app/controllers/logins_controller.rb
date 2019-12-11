@@ -17,6 +17,11 @@ class LoginsController < ApplicationController
 
   def lost_password_email
     @user = User.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def request_password_reset

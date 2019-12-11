@@ -6,7 +6,7 @@
       <%= fi.text_field(:email, 'email') %>
       <%= fi.password(:password, 'password') %>
       <%= fi.submit('login') %>
-      <%= link_to 'forgot password', lost_password_email_login_path %>
+      <%= link_to 'forgot password', lost_password_email_login_path, id: 'forgot-password' %>
     <% end %>
   </div>
 </div>
