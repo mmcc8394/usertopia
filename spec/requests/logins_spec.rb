@@ -48,7 +48,7 @@ RSpec.describe "Login", type: :request do
   context 'password reset - can' do
     it 'view password reset email' do
       get lost_password_email_login_path
-      expect(response.body).to include('Lost Password Email')
+      expect(response.body).to include('Request Password Reset')
     end
 
     it 'create reset guid with a valid email' do
