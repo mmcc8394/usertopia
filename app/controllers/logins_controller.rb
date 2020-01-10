@@ -1,4 +1,5 @@
 class LoginsController < ApplicationController
+
   def new
     redirect_to root_path, alert: "Youre already logged in, silly." if logged_in?
     @user = User.new
