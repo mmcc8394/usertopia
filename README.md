@@ -19,12 +19,16 @@ application require basic formatting and you do want to do tests, right?
 1. cd out of the repository & then back in. List gemsets to make sure
 you're using the right one.
 1. Install the latest bundler (gem install bundler).
+    1. \> gem install bundler
 1. Do a bundle install. 
-1. Run yarn (yarn install --check-files).
+1. Run yarn install or upgrade.
+    1. \> yarn install --check-files
+    1. \> yarn upgrade
 1. Create the new Postgres databases to use.
 1. Update the database.yml file to point at the new databases.
 1. Run rake db:migrate.
-1. Run the rails server in a terminal window (rails server -p 3001).
+1. Run the rails server in a terminal window.
+    1. \> rails server -p 3001
 1. Make sure the new site loads in a browser (http://0.0.0.0:3001).
 1. Run spec tests.
 1. Create a new repository from this updated source.
