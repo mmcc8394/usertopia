@@ -1,26 +1,26 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.2'
+ruby '2.6.3'
 
-gem 'rails', '~> 6.0.0'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'sass-rails', '~> 5'
-gem 'webpacker', '~> 4.0'
-gem 'turbolinks', '~> 5'
-gem 'bootstrap', '~> 4.3.1'
+gem 'rails'
+gem 'pg'
+gem 'sass-rails'
+gem 'webpacker'
+gem 'turbolinks'
+gem 'bootstrap'
 gem 'jquery-rails'
 gem 'octicons'
 gem 'octicons_helper'
 
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
 gem 'pundit'
 gem 'enumerize'
 
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', require: false
 
 # Use Puma as the app server
-#gem 'puma', '~> 3.11'
+#gem 'puma'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -30,9 +30,9 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
   gem 'letter_opener'
 end

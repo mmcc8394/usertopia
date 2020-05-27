@@ -11,8 +11,10 @@ application require basic formatting and you do want to do tests, right?
 1. Create a new RVM gemset for the project.
     1. \> rvm gemset create ruby-2.X.X@app-name 
 1. Clone the repository.
+    1. \> git clone git@github.com:mmcc8394/usertopia.git [APP NAME]
 1. cd into the new repository.
 1. Delete the .git file in the root directory.
+    1. \> rm -rf .git
 1. Update .ruby-version to use the new gemset.
 1. cd out of the repository & then back in. List gemsets to make sure
 you're using the right one.
