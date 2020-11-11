@@ -9,13 +9,15 @@ application require basic formatting and you do want to do tests, right?
 ## The Quick Start
 
 1. Create a new RVM gemset for the project.
-    1. \> rvm gemset create ruby-2.X.X@app-name 
+    1. \> rvm install 2.X.X
+    1. \> rvm gemset create app-name 
 1. Clone the repository.
     1. \> git clone git@github.com:mmcc8394/usertopia.git [APP NAME]
 1. cd into the new repository.
 1. Delete the .git file in the root directory.
     1. \> rm -rf .git
 1. Update .ruby-version to use the new gemset.
+1. Update the Gemfile to the new Ruby version.
 1. cd out of the repository & then back in. List gemsets to make sure
 you're using the right one.
 1. Install the latest bundler (gem install bundler).
@@ -25,6 +27,8 @@ you're using the right one.
     1. \> yarn install --check-files
     1. \> yarn upgrade
 1. Create the new Postgres databases to use.
+    1. \> psql
+    1. \> create database app-name_dev;
 1. Update the database.yml file to point at the new databases.
 1. Run rake db:migrate.
 1. Run the rails server in a terminal window.
