@@ -1,0 +1,5 @@
+<% if logged_in? && !in_admin_namespace? %>
+  <section class="section-header-notice alert alert-secondary" role="alert">
+    <%= link_to 'admin portal', admin_posts_path %>
+  </section>
+<% end %>

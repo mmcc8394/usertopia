@@ -12,10 +12,15 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'octicons'
 gem 'octicons_helper'
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'aws-sdk-s3', require: false
+gem 'image_processing'
 
 gem 'bcrypt'
 gem 'pundit'
 gem 'enumerize'
+gem 'ranked-model'
 
 gem 'bootsnap', require: false
 
@@ -27,6 +32,10 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+group :test do
+  gem 'webmock'
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -34,5 +43,13 @@ group :development do
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'launchy'
   gem 'letter_opener'
+
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-delayed-job'
 end

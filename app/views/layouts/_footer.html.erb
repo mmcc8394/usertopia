@@ -1,0 +1,10 @@
+<div class="text-muted" id="footer">
+  <div class="container">
+    <span class="copyright">Copyright &#169; <%= Date.today.strftime('%Y') %> SITE NAME.</span>
+    <% unless logged_in? %>
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item"><%= link_to 'About Us', '' %></li>
+      </ul>
+    <% end %>
+  </div>
+</div>
