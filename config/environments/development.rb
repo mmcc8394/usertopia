@@ -9,7 +9,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports.
+  # Set to false to see 404 or 500 error pages.
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -32,13 +32,12 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
+  #config.action_mailer.raise_delivery_errors = true
 
   # handling mail
   config.action_mailer.delivery_method = :letter_opener
-  config.active_job.queue_adapter = :inline
+  config.action_mailer.perform_deliveries = true
+  config.active_job.queue_adapter = :delayed_job
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :posts
+
   #
   # Multiple roles per user is based on this post & this gem.
   #   Post: http://dmitrypol.github.io/2016/09/29/roles-permissions.html
@@ -11,6 +13,7 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
+  validates :first_name, :last_name, presence: true
   validates :password, length: { minimum: 6 }, if: :should_validate_password?
 
   scope :active, -> { where('deleted = false') }
@@ -26,6 +29,10 @@ class User < ApplicationRecord
 
   def destroy
     update({ deleted: true })
+  end
+
+  def full_name
+    first_name + ' ' + last_name
   end
 
   private

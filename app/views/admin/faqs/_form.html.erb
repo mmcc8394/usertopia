@@ -1,0 +1,15 @@
+<div class="row justify-content-md-center">
+  <div class="col-12">
+    <%= form_for [ :admin, @faq_category, @faq ] do |f| %>
+      <h2 class="form-heading"><%= heading %></h2>
+
+      <% fi = FormItem.new(f) %>
+
+      <%= f.hidden_field(:faq_category_id) %>
+      <%= fi.text_field(:question, 'question') %>
+      <%= f.rich_text_area :answer, class: 'faq-content' %>
+      <%= f.submit('Save It', class: 'btn btn-primary', value: 'save') %>
+      <a href="#" onclick="history.back();" class="ml-4">cancel</a>
+    <% end %>
+  </div>
+</div>

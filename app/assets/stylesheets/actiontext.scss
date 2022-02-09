@@ -1,0 +1,96 @@
+//@import "trix/dist/trix";
+
+.web-page, .blog-post {
+  trix-editor, .trix-content {
+    h1 {
+      font-family: Alatsi, Roboto, sans-serif;
+      margin: 0.5rem 0 2rem 0;
+      font-size: 1.1rem;
+    }
+
+
+    strong {
+      display: block;
+      font-size: 1.25rem;
+      font-family: Alatsi, Roboto, sans-serif;
+      margin: 2rem 0 0.5rem 0;
+      border-bottom: solid 2px gray;
+    }
+
+    ol, ul {
+      margin: 1rem 0;
+
+      li {
+        padding: 0.3rem 0;
+      }
+    }
+
+    blockquote {
+      margin: 1rem 0;
+      padding: 1rem 0 1rem 0.5rem;
+      border-left: solid 3px var(--brand-dark-gray);
+      background-color: var(--brand-light-gray);
+    }
+
+    figure {
+      margin: 1rem auto;
+
+      img {
+        max-width: 100%;
+      }
+
+      figcaption {
+        background-color: var(--brand-black);
+        padding: 1rem 0;
+        font-size: 1rem !important;
+        color: var(--brand-white) !important;
+        text-align: center;
+
+        textarea {
+          background-color: var(--brand-black);
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    trix-editor, .trix-content {
+      max-width: 70%;
+
+      h1 {
+        margin: 2rem 0 2rem 0;
+        font-size: 1.8rem !important;
+      }
+
+      ol, ul {
+        margin: 1rem 0 1rem 1rem;
+      }
+
+      pre {
+        display: block;
+        background-color: var(--brand-light-gray);
+        padding: 1rem;
+        margin: 1.5rem auto;
+        max-width: 90%;
+      }
+
+      figure {
+        float: right;
+        max-width: 42%;
+        margin: 0 -43% 0 0;
+        border: solid 2px black;
+      }
+    }
+  }
+}
+
+trix-editor {
+  &.post-content {
+    min-height: 15rem;
+  }
+
+  &.faq-content {
+    min-height: 12rem;
+    margin-bottom: 1rem;
+  }
+}

@@ -16,6 +16,21 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :faq_categories do
+      member do
+        get :move_up
+        get :move_down
+      end
+
+      resources :faqs, except: [ :index, :show ] do
+        member do
+          get :move_up
+          get :move_down
+        end
+      end
+    end
+
     resources :posts
+    resources :messages, only: [ :index ]
   end
 end

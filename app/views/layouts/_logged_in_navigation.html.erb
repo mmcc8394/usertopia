@@ -1,0 +1,14 @@
+<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav">
+    <% if logged_in? %>
+      <li class="nav-item"><%= link_to 'Posts', admin_posts_path, class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to 'FAQs', admin_faq_categories_path, class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to 'Messages', admin_messages_path, class: 'nav-link' %></li>
+      <% if policy(User).index? %>
+        <li class="nav-item"><%= link_to 'List Users', admin_users_path, class: 'nav-link' %></li>
+      <% end %>
+      <li class="nav-item"><%= link_to 'Profile', admin_user_path(current_user), class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to 'Logout', admin_login_path, method: :delete, class: 'nav-link' %></li>
+    <% end %>
+  </ul>
+</div>

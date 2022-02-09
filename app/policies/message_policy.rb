@@ -1,0 +1,2 @@
+class MessagePolicy < AllUserAccess
+end

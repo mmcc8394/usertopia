@@ -1,0 +1,20 @@
+<%= link_to 'Create New FAQ', new_admin_faq_category_faq_path(@faq_category) %>
+<table class="table">
+  <% @faq_category.faqs.each do |faq| %>
+    <tr>
+      <td>
+        <h3><%= faq.question %></h3>
+        <%= faq.answer %>
+      </td>
+
+      <td class="actions">
+        <div style="min-width: 15rem; text-align: right;">
+          <%= action_link(edit_admin_faq_category_faq_path(@faq_category, faq), 'pencil', 'edit content') %>
+          <%= action_link(move_up_admin_faq_category_faq_path(@faq_category, faq), 'arrow-up', 'move up') %>
+          <%= action_link(move_down_admin_faq_category_faq_path(@faq_category, faq), 'arrow-down', 'move down') %>
+          <%= action_link_delete(admin_faq_category_faq_path(@faq_category, faq)) %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

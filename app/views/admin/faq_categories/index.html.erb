@@ -1,0 +1,24 @@
+<section class="section-white container">
+  <h1>List of FAQ Categories</h1>
+
+  <p>
+    <%= link_to 'Add New Category', new_admin_faq_category_path %>
+  </p>
+
+  <table class="table">
+    <% @faq_categories.each do |category| %>
+      <tr>
+        <td><%= category.title %></td>
+        <td>
+          <%= action_link(admin_faq_category_path(category), 'eye', 'view category') %>
+          <%= action_link(edit_admin_faq_category_path(category), 'pencil', 'edit category') %>
+          <%= action_link(move_up_admin_faq_category_path(category), 'arrow-up', 'move up') %>
+          <%= action_link(move_down_admin_faq_category_path(category), 'arrow-down', 'move down') %>
+          <% if policy(category).destroy? %>
+            <%= action_link_delete(admin_faq_category_path(category)) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</section>

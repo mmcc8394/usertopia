@@ -51,7 +51,7 @@ class FormItem
   end
 
   def label_tag(field)
-    @form.label(field, class: 'visually-hidden')
+    @form.label(field, class: 'sr-only')
   end
 
   def form_item(field, options)

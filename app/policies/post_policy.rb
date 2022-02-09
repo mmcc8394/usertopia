@@ -1,0 +1,2 @@
+class PostPolicy < AllUserAccess
+end

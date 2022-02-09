@@ -1,0 +1,16 @@
+<section class="section-white container">
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-lg-8">
+      <table class="table">
+        <% @messages.each do |message| %>
+          <tr>
+            <td><%= message.created_at.strftime('%a, %b %-d @ %l:%M%P') %></td>
+            <td><%= message.name %></td>
+            <td><%= number_to_phone(message.phone, area_code: true) %></td>
+            <td><%= message.email %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</section>
