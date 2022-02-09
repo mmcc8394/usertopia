@@ -7,7 +7,7 @@
 <table class="table">
   <% @users.each do |user| %>
     <tr>
-      <td><%= user.email %></td>
+      <td><%= user.full_name %></td>
       <td>[<%= user.print_roles %>]</td>
       <td>
         <%= action_link(admin_user_path(user), 'eye', 'view user') %>
