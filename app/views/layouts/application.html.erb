@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <%
-    @page_title = yield :page_title
-    @meta_description = yield :meta_description
-    assert.error if !@skip_title_and_meta_description && (@page_title.blank? || @meta_description.blank?)
-  %>
+    <%
+      @page_title = yield :page_title
+      @meta_description = yield :meta_description
+      assert.error if !@skip_title_and_meta_description && (@page_title.blank? || @meta_description.blank?)
+    %>
 
-  <title><%= @page_title %></title>
-  <meta name="description" content="<%= @meta_description %>">
+    <title><%= @page_title %></title>
+    <meta name="description" content="<%= @meta_description %>">
 
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,300i,400,600,600i,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,300i,400,600,600i,700&display=swap" rel="stylesheet">
 
-  <%= favicon_link_tag asset_path('favicon.png') %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
 
-  <%= render('shared/analytics') if Rails.env.production? %>
-</head>
+    <%= render('shared/analytics') if Rails.env.production? %>
+  </head>
 
-<body id="<%= params[:controller] + '-' + params[:action] %>">
-<%= render 'layouts/top_of_page_notice' %>
-<%= render 'layouts/modal' %>
-<%= render 'layouts/navigation' %>
-<%= render('layouts/flash') %>
+  <body id="<%= params[:controller] + '-' + params[:action] %>">
+    <%= render 'layouts/top_of_page_notice' %>
+    <%= render 'layouts/modal' %>
+    <%= render 'layouts/navigation' %>
+    <%= render('layouts/flash') %>
 
-<%= yield %>
+    <%= yield %>
 
-<%= render 'layouts/footer' %>
-</body>
+    <%= render 'layouts/footer' %>
+  </body>
 </html>

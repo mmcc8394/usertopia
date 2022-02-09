@@ -1,0 +1,25 @@
+<section class="section-black">
+  <div class="container">
+    <h1><%= @post.title %></h1>
+    <h6>by <%= @post.publisher.full_name %>, <%= @post.published_on.try(:strftime, '%m/%d/%Y') || 'Not Yet Published' %></h6>
+    <h5>
+      <%=
+        if @post.published?
+          link_to @post.relative_url, @post.relative_url
+        else
+          @post.relative_url
+        end
+      %>
+    </h5>
+  </div>
+</section>
+
+<section class="section-light-gray">
+  <div class="container">
+    <%= action_link(admin_posts_path, 'list-unordered', 'content list') %>
+    <%= action_link(edit_admin_post_path(@post), 'pencil', 'edit content') %>
+    <%= action_link_delete(admin_post_path(@post)) %>
+  </div>
+</section>
+
+<%= render partial: 'species_show' %>

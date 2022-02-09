@@ -1,0 +1,26 @@
+<section class="section-white container">
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-lg-8">
+      <table class="table rails-index-list">
+        <caption>
+          <%= link_to 'New Content', new_admin_post_path, class: 'btn btn-primary mb-4' %>
+        </caption>
+
+        <% @posts.each do |post| %>
+          <tr>
+            <td>
+              <%= post.title %><br />
+              by <%= post.publisher.full_name %>, <%= post.published_on.try(:strftime, '%m/%d/%Y') || 'Not Yet Published' %><br />
+              <%= link_to post.relative_url, post.relative_url %>
+            </td>
+            <td class="actions">
+              <%= action_link(admin_post_path(post), 'eye', 'view content') %>
+              <%= action_link(edit_admin_post_path(post), 'pencil', 'edit content') %>
+              <%= action_link_delete(admin_post_path(post)) %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</section>

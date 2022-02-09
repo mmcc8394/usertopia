@@ -14,6 +14,10 @@ class FormItem
     FormTextField.new(@form).build_form_item(field, { placeholder: placeholder })
   end
 
+  def text_area(field, options)
+    FormTextArea.new(@form).build_form_item(field, options)
+  end
+
   def password(field, placeholder)
     FormPassword.new(@form).build_form_item(field, { placeholder: placeholder })
   end
@@ -26,6 +30,10 @@ class FormItem
     FormCheckboxCollection.new(@form).build_form_item(field, { collection: collection,
                                                                value_function: value_function,
                                                                label_function: label_function })
+  end
+
+  def radio_buttons(field, values)
+    FormInlineRadioButtons.new(@form).build_form_item(field, {radio_options: values })
   end
 
   def submit(text)
@@ -43,7 +51,7 @@ class FormItem
   end
 
   def label_tag(field)
-    @form.label(field, class: 'sr-only')
+    @form.label(field, class: 'visually-hidden')
   end
 
   def form_item(field, options)

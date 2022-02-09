@@ -1,0 +1,32 @@
+:root {
+  --brand-black: #231f20;
+  --brand-white: white;
+  --brand-orange: #fe6b00;
+  --brand-gray: #999;
+  --brand-light-gray: #eee;
+  --footer-links: gray;
+  --cta-button: var(--brand-orange);
+
+  // If the logo size changes the dimensions here will need to change.
+  --logo-width-sm: 185px;
+  --logo-height-sm: 40px;
+  --logo-width-lg: 370px;
+  --logo-height-lg: 80px;
+
+  /*
+     1. Extra small devices (phones, 600px and down)
+        @media only screen and (max-width: 600px) {...}
+
+     2. Small devices (portrait tablets and large phones, 600px and up)
+        @media only screen and (min-width: 600px) {...}
+
+     3. Medium devices (landscape tablets, 768px and up)
+        @media only screen and (min-width: 768px) {...}
+
+     4. Large devices (laptops/desktops, 992px and up)
+        @media only screen and (min-width: 992px) {...}
+
+     5. Extra large devices (large laptops and desktops, 1200px and up)
+        @media only screen and (min-width: 1200px) {...}
+   */
+}

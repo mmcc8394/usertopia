@@ -1,0 +1,32 @@
+nav {
+  border-bottom: solid 2px var(--brand-black);
+
+  .nav-item {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 600px) {
+  .bg-light {
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+  }
+
+  nav {
+    .ml-auto .nav-item {
+      text-align: right;
+    }
+
+    a.navbar-brand {
+      position: absolute;
+      left: 50%;
+      margin-left: calc(var(--logo-width-lg) / -2) !important;
+      display: block;
+
+      img.logo {
+        max-width: var(--logo-width-lg);
+      }
+    }
+  }
+}

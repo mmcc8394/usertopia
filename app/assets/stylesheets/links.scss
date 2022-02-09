@@ -1,0 +1,22 @@
+.main-cta-link {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.under-cta-link {
+  display: block;
+  margin-top: 1rem;
+}
+
+.btn-cta,
+.btn-cta:hover {
+  color: var(--brand-white) !important;
+  background-color: var(--cta-button);
+  border-color: var(--cta-button);
+}
+
+@media (min-width: 768px) {
+  .main-cta-link {
+    font-size: 1.4rem;
+  }
+}

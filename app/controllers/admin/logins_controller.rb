@@ -1,7 +1,9 @@
-class LoginsController < ApplicationController
+class Admin::LoginsController < ApplicationController
+  include Skipable
+  before_action :set_skip_title_and_meta_description
 
   def new
-    redirect_to root_path, alert: "Youre already logged in, silly." if logged_in?
+    redirect_to root_path, alert: "You're already logged in, silly." if logged_in?
     @user = User.new
   end
 

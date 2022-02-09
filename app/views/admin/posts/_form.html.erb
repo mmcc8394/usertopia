@@ -1,0 +1,24 @@
+<div class="row justify-content-md-center">
+  <div class="col-12">
+    <%= form_for [ :admin, @post ] do |f| %>
+      <h2 class="form-heading"><%= heading %></h2>
+
+      <% fi = FormItem.new(f) %>
+
+      <%= fi.radio_buttons(:species, %w(web_page blog_post)) %>
+      <%= fi.text_field(:title, 'title') %>
+      <%= fi.text_field(:url, 'url') %>
+      <%= fi.text_area(:meta_description, { placeholder: 'html meta description', rows: 3 }) %>
+
+      <div class="form-group  <%= @post.css_class %>">
+        <%= f.rich_text_area :content, class: 'post-content' %>
+      </div>
+
+      <%= f.submit('Save It', class: 'btn btn-primary', value: 'save') %>
+      <% unless @post.published? %>
+        <%= f.submit('Publish It', class: 'btn btn-success ml-4', value: 'publish') %>
+      <% end %>
+      <a href="#" onclick="history.back();" class="ml-4">cancel</a>
+    <% end %>
+  </div>
+</div>
