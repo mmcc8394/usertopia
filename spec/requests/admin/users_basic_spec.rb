@@ -1,11 +1,18 @@
 require 'rails_helper'
-require 'requests/users_helper'
+require 'helpers/users_helper'
 
 RSpec.configure do |c|
   c.include UsersHelper
 end
 
 RSpec.describe "UsersBasic", type: :request do
+  let(:valid_create_params) {
+    { first_name: 'Jane', last_name: 'Doe', email: 'new-email@domain.com', password: 'new-secret', roles: [ 'basic' ] }
+  }
+
+  let(:valid_update_params) { { email: 'updated-email@domain.com' } }
+  let(:valid_change_password) { { password: 'new-secret', password_confirmation: 'new-secret' } }
+
   before(:each) do
     create_basic_user
     basic_login
@@ -13,7 +20,7 @@ RSpec.describe "UsersBasic", type: :request do
 
   context 'can' do
     it 'show themselves' do
-      get user_path(@basic)
+      get admin_user_path(@basic)
       expect_user_shown(@basic)
     end
 
@@ -31,50 +38,43 @@ RSpec.describe "UsersBasic", type: :request do
     after(:each) { expect_access_denied }
 
     it 'index' do
-      get users_path
+      get admin_users_path
     end
 
     it 'show another user' do
-      get user_path(@admin)
+      get admin_user_path(@admin)
     end
 
     it 'new' do
-      get new_user_path
+      get new_admin_user_path
     end
 
     it 'create' do
-      post users_path, params: { user: { email: 'junk@domain.com', password: 'some-secret' } }
+      post admin_users_path, params: { user: valid_create_params }
     end
 
     it 'edit another user' do
-      get edit_user_path(@admin)
+      get edit_admin_user_path(@admin)
     end
 
     it 'update another user' do
-      put user_path(@admin), params: { user: { email: 'junk@domain.com' } }
+      put admin_user_path(@admin), params: { user: valid_update_params }
     end
 
     it 'edit another user password' do
-      get edit_password_user_path(@admin)
+      get edit_password_admin_user_path(@admin)
     end
 
     it 'update another user password' do
-      put update_password_user_path(@admin), params: { user: { password: 'new-secret', password_confirmation: 'new-secret' } }
+      put update_password_admin_user_path(@admin), params: { user: valid_change_password }
     end
 
     it 'destroy' do
-      delete user_path(@basic)
+      delete admin_user_path(@basic)
     end
 
     it 'edit its own role(s)' do
-      put user_path(@basic), params: { user: { roles: [ 'admin' ] } }
+      put admin_user_path(@basic), params: { user: { roles: [ 'admin' ] } }
     end
-  end
-
-  private
-
-  def basic_login
-    post login_path, params: { user: { email: @basic.email, password: @basic_password } }
-    follow_redirect!
   end
 end

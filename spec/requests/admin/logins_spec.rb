@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'requests/users_helper'
+require 'helpers/users_helper'
 
 RSpec.configure do |c|
   c.include UsersHelper
@@ -8,11 +8,11 @@ end
 RSpec.describe "Login", type: :request do
   before(:each) do
     create_basic_user
-    get new_login_path
+    get new_admin_login_path
   end
 
   context 'valid login' do
-    before(:each) { post login_path, params: { user: { email: @basic.email, password: @basic_password } } }
+    before(:each) { post admin_login_path, params: { user: { email: @basic.email, password: @basic_password } } }
 
     it 'successful logins' do
       expect(response).to have_http_status(302)
@@ -26,7 +26,7 @@ RSpec.describe "Login", type: :request do
 
     it 'logs user out' do
       follow_redirect!
-      delete login_path
+      delete admin_login_path
       follow_redirect!
       expect(response.body).to include('Successfully logged out.')
       expect(session[:user_id]).to be_nil
@@ -35,19 +35,19 @@ RSpec.describe "Login", type: :request do
 
   context 'logins errors' do
     it 'bad email' do
-      post login_path, params: { user: { email: 'no-user@domain.com', password: @basic_password } }
+      post admin_login_path, params: { user: { email: 'no-user@domain.com', password: @basic_password } }
       expect(response.body).to include('Invalid logins email.')
     end
 
     it 'bad password' do
-      post login_path, params: { user: { email: @basic.email, password: 'bad-secret' } }
+      post admin_login_path, params: { user: { email: @basic.email, password: 'bad-secret' } }
       expect(response.body).to include('Invalid password.')
     end
   end
 
   context 'password reset - can' do
     it 'view password reset email' do
-      get lost_password_email_login_path
+      get lost_password_email_admin_login_path
       expect(response.body).to include('Request Password Reset')
     end
 
@@ -78,39 +78,39 @@ RSpec.describe "Login", type: :request do
 
     it 'login with new password after a reset' do
       reset_password
-      post login_path, params: { user: { email: @basic.email, password: 'new-secret' } }
+      post admin_login_path, params: { user: { email: @basic.email, password: 'new-secret' } }
       expect(session[:user_id]).to eq(@basic.id)
     end
   end
 
   context 'password reset - cannot' do
     it 'request reset password with invalid email' do
-      post request_password_reset_login_path, params: { user: { email: 'bad@email.com' } }
+      post request_password_reset_admin_login_path, params: { user: { email: 'bad@email.com' } }
       verify_success_and_follow_with_text('Invalid email.')
     end
 
     it 'reset password without a guid' do
-      put login_path, params: { user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      put admin_login_path, params: { user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Invalid ID.')
     end
 
     it 'reset password with invalid guid (user has no guid)' do
-      put login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      put admin_login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Invalid ID.')
     end
 
     it 'reset password with invalid guid (user has guid)' do
       @basic.update_attribute(:password_reset_guid, SecureRandom.uuid)
-      put login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      put admin_login_path, params: { guid: '323a8c8f-06eb-471b-8d21-f7d51e8352fc', user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Invalid ID.')
     end
 
     it 'reset password with an expired guid' do
       guid = SecureRandom.uuid
       @basic.update_attribute(:password_reset_guid, guid)
-      put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      put admin_login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Password changed.')
-      put login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+      put admin_login_path, params: { guid: guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
       verify_success_and_follow_with_text('Invalid ID.')
     end
   end
@@ -118,11 +118,11 @@ RSpec.describe "Login", type: :request do
   private
 
   def request_password_reset
-    post request_password_reset_login_path, params: { user: { email: @basic.email } }
+    post request_password_reset_admin_login_path, params: { user: { email: @basic.email } }
   end
 
   def reset_password
     @basic.update_attribute(:password_reset_guid, SecureRandom.uuid)
-    put login_path, params: { guid: @basic.password_reset_guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
+    put admin_login_path, params: { guid: @basic.password_reset_guid, user: { password: 'new-secret', confirm_password: 'new-secret' } }
   end
 end

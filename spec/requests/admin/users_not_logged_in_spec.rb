@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'requests/users_helper'
+require 'helpers/users_helper'
 
 RSpec.configure do |c|
   c.include UsersHelper
@@ -11,31 +11,31 @@ RSpec.describe "UsersNotLoggedIn", type: :request do
     after(:each) { expect_access_denied }
 
     it 'index' do
-      get users_path
+      get admin_users_path
     end
 
     it 'new' do
-      get new_user_path
+      get new_admin_user_path
     end
 
     it 'create' do
-      post users_path, params: { user: { email: 'new-user@domain.com', password: 'new-secret', roles: [ 'basic' ] } }
+      post admin_users_path, params: { user: { email: 'new-user@domain.com', password: 'new-secret', roles: [ 'basic' ] } }
     end
 
     it 'edit' do
-      get edit_user_path(@basic)
+      get edit_admin_user_path(@basic)
     end
 
     it 'update' do
-      put user_path(@basic), params: { user: { email: 'new-email@domain.com' } }
+      put admin_user_path(@basic), params: { user: { email: 'new-email@domain.com' } }
     end
 
     it 'show' do
-      get user_path(@basic)
+      get admin_user_path(@basic)
     end
 
     it 'destroy' do
-      delete user_path(@basic)
+      delete admin_user_path(@basic)
     end
   end
 end
