@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:each) { @user = User.new({ email: 'user@domain.com', password: 'some-secret', password_confirmation: 'some-secret', roles: [ 'basic' ] }) }
+  before(:each) { @user = User.new({ email: 'user@domain.com',
+                                     password: 'some-secret', password_confirmation: 'some-secret',
+                                     roles: [ 'basic' ],
+                                     first_name: 'Jane', last_name: 'Doe'
+                                   }) }
 
   context 'successful CRUD operations' do
     it 'creates' do
@@ -27,6 +31,22 @@ RSpec.describe User, type: :model do
 
   context 'fails to create an invalid user' do
     after(:each) { expect(@user.save).to eq(false) }
+
+    it 'blank first_name' do
+      @user.first_name = ''
+    end
+
+    it 'nil first_name' do
+      @user.first_name = nil
+    end
+
+    it 'blank last_name' do
+      @user.last_name = ''
+    end
+
+    it 'nil last_name' do
+      @user.last_name = nil
+    end
 
     it 'blank email' do
       @user.email = ''
@@ -58,7 +78,11 @@ RSpec.describe User, type: :model do
 
     it 'duplicate email' do
       @user.save
-      @user = User.new({ email: 'user@domain.com', password: 'new-secret', password_confirmation: 'new-secret', roles: [ 'basic' ] })
+      @user = User.new({ email: 'user@domain.com',
+                         password: 'new-secret', password_confirmation: 'new-secret',
+                         roles: [ 'basic' ],
+                         first_name: 'Jane', last_name: 'Doe'
+                       })
     end
   end
 
@@ -86,7 +110,11 @@ RSpec.describe User, type: :model do
     end
 
     it 'duplicate email' do
-      User.create!({ email: 'second@domain.com', password: 'new-secret', password_confirmation: 'new-secret', roles: [ 'basic' ] })
+      User.create!({ first_name: 'Jane', last_name: 'Doe',
+                     email: 'second@domain.com',
+                     password: 'new-secret', password_confirmation: 'new-secret',
+                     roles: [ 'basic' ]
+                   })
       expect(@user.update({ email: 'second@domain.com' })).to eq(false)
     end
   end
