@@ -1,7 +1,10 @@
 require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
-  before(:each) { @user = User.create!({ email: 'user@domain.com', password: 'some-secret', password_confirmation: 'some-secret', roles: [ 'basic' ] }) }
+  before(:each) { @user = User.create!({ first_name: 'Jane', last_name: 'Doe',
+                                         email: 'user@domain.com',
+                                         password: 'some-secret', password_confirmation: 'some-secret',
+                                         roles: [ 'basic' ] }) }
 
   context 'user creation' do
     before(:each) { @mail = UserMailer.welcome(@user) }

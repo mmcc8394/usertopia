@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <%= form_for @user, url: request_password_reset_login_path do |f| %>
+    <%= form_for [ :admin, @user ], url: request_password_reset_admin_login_path do |f| %>
       <% fi = FormItem.new(f) %>
 
       <%= fi.text_field(:email, 'reset email') %>

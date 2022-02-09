@@ -33,7 +33,7 @@ class Admin::LoginsController < ApplicationController
       send_reset_password_email
     else
       flash[:alert] = 'Invalid email.'
-      redirect_to new_login_path
+      redirect_to new_admin_login_path
     end
   end
 
@@ -41,7 +41,7 @@ class Admin::LoginsController < ApplicationController
     @user = User.by_password_guid(params[:guid])
     if @user.nil?
       flash[:alert] = 'Invalid ID.'
-      redirect_to new_login_path
+      redirect_to new_admin_login_path
     end
   end
 
@@ -51,7 +51,7 @@ class Admin::LoginsController < ApplicationController
       reset_password
     else
       flash[:alert] = 'Invalid ID.'
-      redirect_to new_login_path
+      redirect_to new_admin_login_path
     end
   end
 
@@ -79,7 +79,7 @@ class Admin::LoginsController < ApplicationController
 
     if @user.update({ password_reset_guid: SecureRandom.uuid })
       UserMailer.reset_password_link(@user).deliver_later
-      redirect_to new_login_path, notice: 'Password reset email sent.'
+      redirect_to new_admin_login_path, notice: 'Password reset email sent.'
     else
       flash[:alert] = @user.errors.full_messages.join('<br />')
       render action: :lost_password_email
@@ -92,7 +92,7 @@ class Admin::LoginsController < ApplicationController
     @user.password_reset_guid = nil
     if @user.update(password_reset_params)
       UserMailer.password_changed(@user).deliver_later
-      redirect_to new_login_path, notice: 'Password changed.'
+      redirect_to new_admin_login_path, notice: 'Password changed.'
     else
       flash[:alert] = @user.errors.full_messages.join('<br />')
       render action: :new
