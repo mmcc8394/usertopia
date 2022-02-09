@@ -22,8 +22,7 @@ RSpec.describe "UsersAdmin", type: :request do
 
     it 'index' do
       get admin_users_path
-      expect(response.body).to include(@admin.email)
-      expect(response.body).to include(@basic.email)
+      expect(response.body).to include(@admin.full_name)
     end
 
     it 'show another user' do
