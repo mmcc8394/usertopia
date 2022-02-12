@@ -37,6 +37,10 @@ you're using the right one.
 1. Run rake db:migrate for development & test.
     1. \> rake db:migrate
     1. \> rake db:migrate RAILS_ENV=test
+1. Manually create an admin user for the account.
+    1. cd into the new applications root directory.
+    1. \> rails console
+    1. \>  User.create!({ email: 'user@mycompany.com', password: 'password', first_name: 'Jane', last_name: 'Doe', roles: [ 'admin' ] })
 1. Run the rails server in a terminal window.
     1. \> rails server -p 3001
 1. Make sure the new site loads in a browser (http://0.0.0.0:3001).
