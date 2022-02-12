@@ -26,11 +26,17 @@ you're using the right one.
 1. Run yarn install or upgrade.
     1. \> yarn install --check-files
     1. \> yarn upgrade
+1. Install ActionText.
+    1. \> rails action_text:install
+    1. Do NOT overwrite actiontext.scss when prompted.
 1. Create the new Postgres databases to use.
     1. \> psql
     1. \> create database app-name_dev;
+    1. \> create database app-name_test;
 1. Update the database.yml file to point at the new databases.
-1. Run rake db:migrate.
+1. Run rake db:migrate for development & test.
+    1. \> rake db:migrate
+    1. \> rake db:migrate RAILS_ENV=test
 1. Run the rails server in a terminal window.
     1. \> rails server -p 3001
 1. Make sure the new site loads in a browser (http://0.0.0.0:3001).
