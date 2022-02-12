@@ -12,11 +12,11 @@ RSpec.describe CustomerMailer, type: :mailer do
     end
 
     it 'from email' do
-      expect(@mail.from).to eq([ 'from@example.com' ])
+      expect(@mail.from).to eq([ 'from@mycompany.com' ])
     end
 
     it 'to email' do
-      expect(@mail.to).to eq([ 'contact-us@mysite.com'  ])
+      expect(@mail.to).to eq([ 'contact-us@mycompany.com'  ])
     end
 
     it 'customer name in message' do

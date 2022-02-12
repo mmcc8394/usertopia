@@ -14,7 +14,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'from email' do
-      expect(@mail.from).to eq([ 'from@example.com' ])
+      expect(@mail.from).to eq([ 'from@mycompany.com' ])
     end
 
     it 'to email' do
@@ -41,7 +41,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'from email' do
-      expect(@mail.from).to eq([ 'from@example.com' ])
+      expect(@mail.from).to eq([ 'from@mycompany.com' ])
     end
 
     it 'to email' do
@@ -65,7 +65,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'from email' do
-      expect(@mail.from).to eq([ 'from@example.com' ])
+      expect(@mail.from).to eq([ 'from@mycompany.com' ])
     end
 
     it 'to email' do
