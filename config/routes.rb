@@ -33,4 +33,8 @@ Rails.application.routes.draw do
     resources :posts
     resources :messages, only: [ :index ]
   end
+
+  get 'blog', to: 'blogs#index', as: :blog
+  get 'blog/:url', to: 'blogs#show', as: :blog_show
+  get ':url', to: 'web_pages#show'
 end

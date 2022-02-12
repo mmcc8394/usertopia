@@ -1,0 +1,23 @@
+<% page_title 'Blog Posts' %>
+<% meta_description 'Some meta description here.' %>
+
+<section id="blog-hero" class="section-black section-center">
+  <h1>COMPANY Blog</h1>
+  <h3>TAGLINE</h3>
+</section>
+
+<section class="section-white">
+  <div class="container">
+    <ul class="list-group">
+      <% @posts.each do |p| %>
+        <li class="list-group-item">
+          <h3><%= link_to p.title, p.relative_url %></h3>
+          <h6>by <%= p.publisher.full_name + ', ' + p.published_on.strftime('%m/%d/%Y') %></h6>
+          <p>
+            <%= p.meta_description %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>

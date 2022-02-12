@@ -7,7 +7,7 @@ module UsersHelper
 
   def action_link_delete(path)
     link_to(path, method: :delete, class: 'm-3', title: 'delete', data: { confirm: 'Are you sure you want to delete this?' }) do
-      octicon('trash', height: 20, 'aria-label': 'delete')
+      octicon('trashcan', height: 20, 'aria-label': 'delete')
     end
   end
 end
