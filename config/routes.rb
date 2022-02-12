@@ -34,6 +34,11 @@ Rails.application.routes.draw do
     resources :messages, only: [ :index ]
   end
 
+  # contacting us
+  get 'contact-us', to: 'contacts#new', as: :new_contact
+  post 'contact-us/create', to: 'contacts#create', as: :create_contact
+  get 'contact-us/thank-you', to: 'contacts#show', as: :show_contact
+
   get 'blog', to: 'blogs#index', as: :blog
   get 'blog/:url', to: 'blogs#show', as: :blog_show
   get ':url', to: 'web_pages#show'

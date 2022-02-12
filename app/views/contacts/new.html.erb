@@ -1,0 +1,43 @@
+<% page_title 'Contact Us' %>
+<% meta_description 'Interested in our repair service? Have a question? Use this form to contact us and get help.' %>
+
+<section id="contact-us-hero">
+  <div class="container">
+    <h1>Request Information</h1>
+
+    <p>
+      Enter your information below. Someone from our offices will
+      contact you shortly to determine how we can help you.
+    </p>
+
+    <%= form_for @message, url: create_contact_path do |f| %>
+      <% fi = FormItem.new(f) %>
+
+      <%= fi.text_field(:name, 'your name') %>
+      <%= fi.text_field(:phone, 'phone number') %>
+      <%= fi.text_field(:email, 'email') %>
+      <%= fi.submit 'Request Information' %>
+    <% end %>
+  </div>
+</section>
+
+<section class="section-white">
+  <div class="container">
+    <h2>Contact Details</h2>
+
+    Phone: <a href="tel:321-555-5555">(321) 555-5555</a><br />
+    Email: <a href="mailto:contact-us@mycompany.com">contact-us@mycompany.com</a>
+  </div>
+</section>
+
+<section class="section-white">
+  <div class="container">
+    <h2>Company Address</h2>
+
+    <address>
+      My Company<br />
+      123 Some Street<br />
+      Some City, WI 53705
+    </address>
+  </div>
+</section>

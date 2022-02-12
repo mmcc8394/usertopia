@@ -1,0 +1,15 @@
+#contact-us-hero {
+  background: var(--brand-black) url(asset_path('Backgrounds/contact-us-550x650.png')) no-repeat left top;
+  color: var(--brand-white);
+}
+
+@media (min-width: 768px) {
+  #contact-us-hero {
+    background-image: url(asset_path('Backgrounds/contact-us-1400x750.png'));
+
+    form {
+      max-width: 40rem;
+      margin: 2rem 0;
+    }
+  }
+}

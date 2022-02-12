@@ -1,3 +1,4 @@
 <% flash.each do |key, value| %>
+  <% next if value.nil? %>
   <div class="flash flash-<%= key %>"><%= value.html_safe %></div>
 <% end %>

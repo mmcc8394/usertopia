@@ -1,13 +1,10 @@
 <div class="collapse navbar-collapse" id="navbarNav">
   <ul class="navbar-nav">
-    <% if logged_in? %>
-      <% if policy(User).index? %>
-        <li class="nav-item"><%= link_to 'List Users', admin_users_path, class: 'nav-link' %></li>
-      <% end %>
-      <li class="nav-item"><%= link_to 'Profile', admin_user_path(current_user), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to 'Logout', admin_login_path, method: :delete, class: 'nav-link' %></li>
-    <% else %>
-      <li class="nav-item"><%= link_to 'Login', new_admin_login_path, class: 'nav-link' %></li>
+    <li class="nav-item"><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+    <li class="nav-item"><%= link_to 'Blog', blog_path, class: 'nav-link' %></li>
+
+    <% unless contact_us_page? %>
+      <li class="nav-item"><%= link_to 'Contact Us', new_contact_path, class: 'nav-link' %></li>
     <% end %>
   </ul>
 </div>

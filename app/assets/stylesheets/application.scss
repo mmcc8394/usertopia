@@ -12,9 +12,9 @@
 @import 'links';
 //@import "lists";
 //@import "tables";
-@import "navigation";
-@import "login";
-@import "footer";
+@import 'navigation';
+@import 'login';
+@import 'footer';
 //@import "testimonials";
 //@import "process";
 //@import "admin_faq";
@@ -24,9 +24,8 @@
 /*
  * Specific page imports below here.
  */
-//@import "home";
-//@import "contact_us";
-//@import "blogs";
+@import 'contact_us';
+@import 'blogs';
 
 html {
   font-size: 16px;

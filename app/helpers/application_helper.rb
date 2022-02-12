@@ -7,6 +7,14 @@ module ApplicationHelper
     controller.class.name.split("::").first == 'Admin'
   end
 
+  def contact_us_page?
+    action?('contacts', 'new')
+  end
+
+  def action?(controller, action)
+    params[:controller] == controller && params[:action] == action
+  end
+
   #
   # The following three functions are purely to make the HTML look more
   # readable. Not essential but makes for a cleaner HTML page.
