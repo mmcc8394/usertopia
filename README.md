@@ -32,9 +32,11 @@ you're using the right one.
     1. \> rails action_text:install
     1. Do NOT overwrite actiontext.scss when prompted.
 1. Create the new Postgres databases to use.
-    1. \> psql
+    1. \> psql postgres
     1. \> create database app-name_dev;
     1. \> create database app-name_test;
+1. Grant a user full priveleges to the database.
+    1. \> GRANT ALL PRIVILEGES ON DATABASE database TO user;
 1. Update the database.yml file to point at the new databases.
 1. Run rake db:migrate for development & test.
     1. \> rake db:migrate
