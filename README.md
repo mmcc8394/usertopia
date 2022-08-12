@@ -18,6 +18,7 @@ application require basic formatting and you do want to do tests, right?
     1. \> rm -rf .git
 1. Update .ruby-version to use the new gemset.
 1. Delete the Gemfile.lock file so you get the latest gems.
+1. Delete the Yarn.lock
 1. Update the Gemfile to the new Ruby version.
 1. cd out of the repository & then back in. List gemsets to make sure
 you're using the right one.
