@@ -31,6 +31,8 @@ you're using the right one.
 1. Install ActionText.
     1. \> rails action_text:install
     1. Do NOT overwrite actiontext.scss when prompted.
+1. Install webpacker.
+    1. \> rails webpacker:install
 1. Create the new Postgres databases to use.
     1. \> psql postgres
     1. \> create database app-name_dev;
